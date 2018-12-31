@@ -1,7 +1,7 @@
 SolidusInstagram
 ================
 
-Introduction goes here.
+This extension puts an Instagram feed above the footer. This is a learning exercise, I would not recommend using this.
 
 Installation
 ------------
