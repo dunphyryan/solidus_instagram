@@ -5,18 +5,18 @@ require 'solidus_instagram/version'
 Gem::Specification.new do |s|
   s.name        = 'solidus_instagram'
   s.version     = SolidusInstagram::VERSION
-  s.summary     = 'TODO'
-  s.description = 'TODO'
+  s.summary     = 'Places an Instagram feed above your footer.'
+  s.description = 'Not recommended for use. Made for learning purposes.'
   s.license     = 'BSD-3-Clause'
 
-  # s.author    = 'You'
-  # s.email     = 'you@example.com'
-  # s.homepage  = 'http://www.example.com'
+  s.author    = 'Ryan Dunphy'
+  s.email     = 'rdunphy@gmail.com'
+  s.homepage  = 'https://ryan-dunphy.com'
 
   s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['test/**/*']
 
-  s.add_dependency 'solidus_core', '~> 1.0'
+  s.add_dependency 'solidus_core'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'poltergeist'
