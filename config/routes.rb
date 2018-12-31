@@ -17,4 +17,3 @@ namespace :admin do
     patch '/instagram_settings' => "instagram_settings#update"
   end
 end
-end

@@ -1,0 +1,7 @@
+--- !ruby/object:ActionController::Parameters
+parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  enabled: 'true'
+  token: 1470967280.1154334.1d4c4ac6e3694fd3a7d76dcffbda6b24
+  client_id: 11543344b07f41409ac18783ee992b4e
+  number: '13'
+permitted: false
