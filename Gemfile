@@ -6,6 +6,4 @@ gem 'solidus_auth_devise'
 gem 'deface'
 gem 'instagram'
 gem 'sidekiq'
-gem 'instagram'
-gem 'sidekiq'
 gemspec

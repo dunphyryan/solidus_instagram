@@ -1,0 +1,28 @@
+<% admin_layout "full-width" %>
+<% admin_breadcrumb(plural_resource_name(Spree::InstagramSetting)) %>
+<%= form_for InstagramSetting.new, :url=>{:action => "update"} do |f| %>
+  <%= f.label(:enabled, "Enable" ) %><br>
+  <%= f.radio_button :enabled, true %>On<br>
+  <%= f.radio_button :enabled, false%>Off<br>
+  <%= f.label(:token, "Token") %><br>
+  <%= f.text_field :token, :value => YAML.load(File.read("instagram.yml"))["token"] %><br>
+  <%= f.label(:client_id, "Client id") %><br>
+  <%= f.text_field :client_id, :value => YAML.load(File.read("instagram.yml"))["client_id"] %><br>
+  <%= f.label(:number, "Number of Pictures") %><br>
+  <%= f.text_field :number, :value => YAML.load(File.read("instagram.yml"))["number"] %><br><br>
+  <%= f.submit("Update Settings") %>
+ <% end %>
+<br><br>
+<% x = 0
+   instagram_pictures = YAML.load(File.read("instagram.yml"))["number"].to_i
+   while x < instagram_pictures%>
+  <% if File.file?("app/assets/images/instagram#{x}.jpg") %>
+    <%= image_tag "instagram#{x}.jpg", :style=>"height: 200px; width:200px; margin-top:3px;";%>
+  <% else %>
+    <%= image_tag "instagram-default.jpg", :style=>"height: 200px; width:200px";%>
+  <% end %>
+  <% x += 1 %>
+<% end %>
+<br><br>
+  <%= button_to 'Apply Settings', "/admin/instagram_settings/button", method: :get %><br>
+
