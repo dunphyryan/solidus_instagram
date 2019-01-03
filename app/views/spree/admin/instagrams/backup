@@ -1,5 +1,4 @@
 <% admin_layout "full-width" %>
-<% admin_breadcrumb(plural_resource_name(Spree::InstagramSetting)) %>
 <%= form_for InstagramSetting.new, :url=>{:action => "update"} do |f| %>
   <%= f.label(:enabled, "Enable" ) %><br>
   <%= f.radio_button :enabled, true %>On<br>
@@ -25,4 +24,5 @@
 <% end %>
 <br><br>
   <%= button_to 'Apply Settings', "/admin/instagram_settings/button", method: :get %><br>
+
 

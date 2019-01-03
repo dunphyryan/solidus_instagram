@@ -1,0 +1,15 @@
+<% admin_layout "full-width" %>
+<% x = 0
+   instagram_pictures = YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))["number"].to_i
+   while x < instagram_pictures%>
+  <% if File.file?("app/assets/images/instagram#{x}.jpg") %>
+    <%= image_tag "instagram#{x}.jpg", :style=>"height: 200px; width:200px; margin-top:3px;";%>
+  <% else %>
+    <%= image_tag "instagram-default.jpg", :style=>"height: 200px; width:200px";%>
+  <% end %>
+  <% x += 1 %>
+<% end %>
+<br><br>
+  <%= button_to 'Apply Settings', "/admin/instagram_settings/button", method: :get %><br>
+
+
