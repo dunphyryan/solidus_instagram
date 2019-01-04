@@ -1,5 +1,7 @@
 <% admin_layout "full-width" %>
-<%= form_for InstagramSetting.new, :url=>{:action => "update"} do |f| %>
+<% admin_breadcrumb(Spree.t(:settings)) %>
+<% admin_breadcrumb(Spree.t(:general_settings)) %>
+<%= form_for [:admin, Instagram.new] do |f| %>
   <%= f.label(:enabled, "Enable" ) %><br>
   <%= f.radio_button :enabled, true %>On<br>
   <%= f.radio_button :enabled, false%>Off<br>
@@ -16,13 +18,13 @@
    instagram_pictures = YAML.load(File.read("instagram.yml"))["number"].to_i
    while x < instagram_pictures%>
   <% if File.file?("app/assets/images/instagram#{x}.jpg") %>
-    <%= image_tag "instagram#{x}.jpg", :style=>"height: 200px; width:200px; margin-top:3px;";%>
+    <%= image_tag "../solidus/lib/instagram#{x}.jpg", :style=>"height: 200px; width:200px; margin-top:3px;";%>
   <% else %>
     <%= image_tag "instagram-default.jpg", :style=>"height: 200px; width:200px";%>
   <% end %>
   <% x += 1 %>
 <% end %>
 <br><br>
-  <%= button_to 'Apply Settings', "/admin/instagram_settings/button", method: :get %><br>
+  <%= button_to 'Apply Settings', "/admin/instagram_setting/button", method: :get %><br>
 
 

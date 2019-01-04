@@ -13,14 +13,14 @@ end
 x = 0
 first = Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[0]["caption"]["text"]
 captionText = Hash['0', first]
-File.open("captions.yml", "w") { |file| file.write(captionText.to_yaml)}
+File.open("../solidus_instagram/lib/captions.yml", "w") { |file| file.write(captionText.to_yaml)}
 while x < instagram_pictures do
 if Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["caption"].nil?
 captionText = " "
-File.open("captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
+File.open("../solidus_instagram/lib/captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
 else
 captionText = [Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["caption"]["text"]]
-File.open("captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
+File.open("solidus_instagram/lib/captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
 end
     x += 1
     end
