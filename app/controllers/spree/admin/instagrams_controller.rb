@@ -1,4 +1,4 @@
-class Spree::Admin::InstagramsController < ApplicationController
+class Spree::Admin::InstagramsController < Spree::Admin::BaseController
 def index
 end
 def new

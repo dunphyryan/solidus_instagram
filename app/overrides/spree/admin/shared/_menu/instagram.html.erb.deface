@@ -1,0 +1,2 @@
+<!-- insert_bottom "[data-hook='admin_tabs']" namespaced -->
+<%= tab :Instagram,  :url => 'instagrams', :icon => 'fab fa-instagram' %>
