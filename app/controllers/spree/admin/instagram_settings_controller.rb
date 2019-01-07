@@ -5,8 +5,12 @@ end
 def new
 end
   def update
-   settings = params[:enabled, :token, :number, :client_id]
-   File.open("../solidus_instagram/lib/instagram.yml", "w") { |file| file.write(settings.to_yaml) }
+   enabled = params[:enabled]
+   client_id = params[:client_id]
+   token = params[:token]
+   number = params[:number]
+   instagram_settings = [enabled, client_id, token, number]
+   File.open("../solidus_instagram/lib/instagram.yml", "w") { |file| file.write(instagram_settings.to_yaml) }
   end
 def show
 load 'InstagramWorker.rb'

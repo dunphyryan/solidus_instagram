@@ -1,4 +1,3 @@
-
 Spree::Core::Engine.routes.draw do
   namespace :spree do
     namespace :admin do
