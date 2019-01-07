@@ -10,16 +10,19 @@
 <%= label_tag(:token, "Token") %><br>
 <%= text_field_tag(:token, value = $instagram_token) %><br>
 <%= label_tag(:number, "Number of Pictures") %><br>
-<%= text_field_tag(:number, value = instagram_pictures) %><br><br>
+<%= text_field_tag(:number, value = $instagram_pictures) %><br><br>
     <%= submit_tag("Update Settings") %><br><br>
   <% end %>
 <% x = 0
-   while x < $instagram_pictures%>
-  <% if File.file?("app/assets/images/instagram#{x}.jpg") %>
+   while x < instagram_pictures%>
+  <% if File.file?("instagram#{x}.jpg") %>
     <%= image_tag "instagram#{x}.jpg", :style=>"height: 200px; width:200px; margin-top:3px;";%>
   <% else %>
     <%= image_tag "instagram-default.jpg", :style=>"height: 200px; width:200px";%>
   <% end %>
   <% x += 1 %>
 <% end %>
+<br><br>
+  <%= button_to 'Apply Settings', '/new', method: :get %><br>
+
 

@@ -1,7 +1,7 @@
 # Checks to see if url matches last downloaded picture and downloads new picture if it is different.
 instagram_token_short = $instagram_token.slice(0..9)
 x = 0
-instagram_pictures = YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))["number"].to_i
+instagram_pictures = YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))[3].to_i
 while x < instagram_pictures do
     next if Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["images"].nil?
     instagram = Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["images"]["standard_resolution"]["url"]
@@ -20,7 +20,7 @@ captionText = " "
 File.open("../solidus_instagram/lib/captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
 else
 captionText = [Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["caption"]["text"]]
-File.open("solidus_instagram/lib/captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
+File.open("../solidus_instagram/lib/captions.yml", "ab") { |file| file.write(captionText.to_yaml)}
 end
     x += 1
     end
