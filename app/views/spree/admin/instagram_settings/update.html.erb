@@ -1,3 +1,25 @@
-<meta http-equiv="refresh" content="0; url=../instagram_settings" />
-<p>Settings Updated</p>
+<% admin_layout "full-width" %>
+<% admin_breadcrumb("Instagram") %>
+<% instagram_pictures=YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))[3].to_i%>
+<%= form_for InstagramSetting.new, :url=>{:action => "update"} do |f| %>
 
+  <%= f.label(:enabled, "Enable" ) %><br>
+  <%= f.radio_button :enabled, true %>On<br>
+  <%= f.radio_button :enabled, false%>Off<br>
+  <%= f.label(:token, "Token") %><br>
+  <%= f.text_field :token %><br>
+  <%= f.label(:client_id, "Client id") %><br>
+  <%= f.text_field :client_id %><br>
+  <%= f.label(:number, "Number of Pictures") %><br>
+  <%= f.text_field :number %><br><br>
+  <%= f.submit("Update Settings") %>
+ <% end %>
+<% x = 0
+   while x < instagram_pictures%>
+  <% if File.file?("app/assets/images/instagram#{x}.jpg") %>
+    <%= image_tag "instagram#{x}.jpg", :style=>"height: 200px; width:200px; margin-top:3px;";%>
+  <% else %>
+    <%= image_tag "instagram-default.jpg", :style=>"height: 200px; width:200px";%>
+  <% end %>
+  <% x += 1 %>
+<% end %>

@@ -2,6 +2,7 @@
 instagram_token_short = $instagram_token.slice(0..9)
 x = 0
 instagram_pictures = YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))[3].to_i
+File.open("../solidus_instagram/lib/instagram-urls.yml", "w")
 while x < instagram_pictures do
     next if Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["images"].nil?
     instagram = Instagram.user_recent_media(instagram_token_short, {:count => instagram_pictures})[x]["images"]["standard_resolution"]["url"]

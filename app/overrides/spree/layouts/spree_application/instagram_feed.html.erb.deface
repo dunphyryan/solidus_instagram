@@ -1,223 +1,68 @@
 <!-- insert_after "div#wrapper" namespaced -->
-<div id="slider_container" class="container-a3">
-<div id="slider">
-<div class="container-a3">
-<ul class="caption-style-3">
+<div id="instagram">
 <% if YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))[0]
 x = 0
 instagram_pictures = YAML.load(File.read("../solidus_instagram/lib/instagram.yml"))[3].to_i
 captions = YAML.load_stream(open("../solidus_instagram/lib/captions.yml")).flatten
+urls = YAML.load_stream(open("../solidus_instagram/lib/instagram-urls.yml")).flatten
 while x < instagram_pictures%>
 <% if captions[x+1].nil?
 captionText = " " 
 else
 captionText = captions[x+1]
-%>
-<li><%= image_tag "instagram#{x}.jpg", :style=>"height: 200px; width:200px";%><div class="caption-text" style="margin-top:150px;"><p>
+end%>
+<div class="image-container image-container-num6">
+<div class="image image-num6">
+<a href="<%= urls[x] %>">
+<%= image_tag "instagram#{x}.jpg", :style=>"height: 230px; width:230px";%></a>
+</div>
+ <div class="caption caption-num6">
 <%=captions[x+1]%>
-</p></li>
-<div class="blur"></div>
-<div class="caption-text" style="margin-top:150px;">
 <%captionText%>
-</li></div></div>
+</div>
+</div>
 <% x += 1 %>
 <% end
-end
 end %>
-</div></div></div></div>
+</div></div>
 
 <style>
-*{
-    margin: 0;
-padding: 0;
-}
-
-#slider {
-height:200px;
-width:1200px;
-overflow:hidden;
-}
-
-#slider img {
-height: 200px;
-width: 200px;
-float: left;
-}
-
-#slider ul {
-list-style: none;
-height:200px;
-width:1500px;
-position:relative;
-}
-
-#slider li {
-display: inline;
-}
-
-#mouseover {
-height: 45px;
-width: 45px;
-margin: 50px;
-background-color: black;
-}
-
-.caption-style-3{
-    list-style-type: none;
-margin: 0px;
-padding: 0px;
-}
-
-.caption-style-3 li{
-  float: left;
-  padding: 0px;
+.image-container {
+  display: inline-block;
   position: relative;
+  width: 230px;
+  height: 230px;
   overflow: hidden;
-}
-
-.caption-style-3 li:hover .caption{
-  opacity: 1;
-  transform: translateY(-100px);
-  -webkit-transform:translateY(-100px);
-  -moz-transform:translateY(-100px);
-  -ms-transform:translateY(-100px);
-  -o-transform:translateY(-100px);
-}
-
-.caption-style-3 li:hover img{
-  opacity: 1;
-  transform: translateY(-40px);
-  -webkit-transform:translateY(-40px);
-  -moz-transform:translateY(-40px);
-  -ms-transform:translateY(-40px);
-  -o-transform:translateY(-40px);
-
-}
-
-
-.caption-style-3 img{
-  margin: 0px;
-  padding: 0px;
-  float: left;
-  z-index: 4;
-}
-
-
-.caption-style-3 .caption{
+  background: #fff;
   cursor: pointer;
-  position: absolute;
-  opacity: 0;
-  top:300px;
-  -webkit-transition:all 0.15s ease-in-out;
-  -moz-transition:all 0.15s ease-in-out;
-  -o-transition:all 0.15s ease-in-out;
-  -ms-transition:all 0.15s ease-in-out;
-  transition:all 0.15s ease-in-out;
-
 }
-
-.caption-style-3 img{
-  -webkit-transition:all 0.15s ease-in-out;
-  -moz-transition:all 0.15s ease-in-out;
-  -o-transition:all 0.15s ease-in-out;
-  -ms-transition:all 0.15s ease-in-out;
-  transition:all 0.15s ease-in-out;
-
+.image {
+  width: 230px;
+  height: 230px;
+  z-index: 1;
+  transition: all .5s;
 }
- .caption-style-3 .blur{
-  background-color:blue ;
-  height: 300px;
-  width: 400px;
-  z-index: 5;
-  position: absolute;
+.image img {
+  max-width: 100%;
 }
-
-.caption-style-3 .caption-text h1{
-  text-transform: uppercase;
-  font-size: 18px;
+.caption {
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba(0,0,0,.8);
+  z-index: 2;
+  font-weight: 300;
+  transition: all .5s;
+  color:white;
 }
-
-.caption-style-3 .caption-text{
-  z-index: -10;
-  color: black;
-  position: absolute;
-  width: 400px;
-  height: 300px;
-  text-align: center;
-  left:-105px;
-  top:10px;
-
+.caption-num6 {
+  transform: translateY(-230px) translateY(-100%);
+  padding-left:20px;
 }
+.image-container-num6:hover .caption-num6 {
+  transform: translateY(-230px);
+}
+.image-container-num6:hover .image-num6 {
+  opacity: .5;
 }
 </style>
-
-<script>
-
-$(document).ready(function(){
-    window.current = 1;
-    setActiveBtn(current);
-    window.pause = false;
-    window.sliderTimer = setInterval( go, 5000);
-
-    $( "#slider_container" ).hover(
-        function() {
-            pause = true;
-            //console.log("pause");
-}, function() {
-  pause = false;
-  //console.log("un-pause");
-}
-);
-});
-
-/* PARAMS: next index (optional), current index (optional) */
-function go(){
-  if(pause){
-      restartTimer();
-  return false;
-  }
-
-  if(arguments[1]){
-      restartTimer();
-  }
-
-  var picWidth = 200,
-      max = 5,
-      bumpit = "",
-      /* HANDLE THE PREV() INDEXING BELOW 1 */
-  pos = (arguments[0] === undefined) ? ++current : ( arguments[0] === 0 ? max : arguments[0]);
-  current = (arguments[1] === undefined) ? current : ( arguments[0] === 0 ? max : arguments[0]);
-
-  setActiveBtn(current);
-
-  if( pos <= max ){
-      bumpit = ( pos - 1 ) * picWidth;
-  bumpit = "-" + bumpit + "px";
-  $("#slider ul").animate( {left: bumpit }, 1000 );
-  } else {
-      current = 1;
-  go(1);
-  }
-  }
-
-  function restartTimer() {
-    clearInterval(sliderTimer);
-    sliderTimer = setInterval( go, 5000);
-  }
-
-  function setActiveBtn(index){
-    $("#slider_btns li").removeClass("active").not( $("#slider_btns li").eq(index - 1).addClass("active") );
-  }
-
-  function next() {
-      var nextIndex = current + 1;
-  go(nextIndex, nextIndex);
-  }
-
-  function prev() {
-    var prevIndex = current - 1;
-    go(prevIndex, prevIndex);
-  }
-    </script>
-
-
